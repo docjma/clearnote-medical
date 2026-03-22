@@ -1,9 +1,6 @@
-TSX
-Copy
+import { Metadata } from "next";
 
-import type { Metadata } from "next";
- 
-export const metadata: Metadata = {
+export const metadata = {
   title: "ClearNote Medical | Virtual Sick Notes & Disability Forms in Ontario",
   description:
     "ClearNote Medical provides virtual sick notes, work accommodation letters, disability forms, and DTC paperwork for Ontario patients — no family doctor required. Same-day appointments available.",
@@ -47,16 +44,11 @@ export const metadata: Metadata = {
     },
   },
 };
- 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+
+export default function RootLayout({ children }) {
   return (
     <html lang="en-CA">
       <body>{children}</body>
     </html>
   );
 }
- 
