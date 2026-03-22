@@ -1,5 +1,4 @@
-Clearnotemedical · JSX
-Copy
+
 
 "use client";
  
