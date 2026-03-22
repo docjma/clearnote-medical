@@ -2,7 +2,6 @@ TSX
 Copy
 
 import type { Metadata } from "next";
-import "./globals.css";
  
 export const metadata: Metadata = {
   title: "ClearNote Medical | Virtual Sick Notes & Disability Forms in Ontario",
