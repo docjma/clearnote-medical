@@ -1,4 +1,5 @@
-import { Metadata } from "next";
+
+import "./globals.css";
 
 export const metadata = {
   title: "ClearNote Medical | Virtual Sick Notes & Disability Forms in Ontario",
