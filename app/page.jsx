@@ -1,10 +1,15 @@
+Clearnotemedical · JSX
+Copy
+
+"use client";
+ 
 import { useEffect } from "react";
 import { FileText, ShieldCheck, Clock3, Stethoscope, CheckCircle2 } from "lucide-react";
-
+ 
 export default function ClearNoteMedicalWebsite() {
   useEffect(() => {
-    document.title = "ClearNote Medical";
-
+    document.title = "ClearNote Medical | Virtual Sick Notes & Disability Forms in Ontario";
+ 
     const svg = encodeURIComponent(`
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
         <rect width="64" height="64" rx="16" fill="#0f4c81"/>
@@ -13,16 +18,50 @@ export default function ClearNoteMedicalWebsite() {
         <path d="M31 31v12M25 37h12" stroke="#0f4c81" stroke-width="4" stroke-linecap="round"/>
       </svg>
     `);
-
+ 
     let favicon = document.querySelector("link[rel='icon']");
     if (!favicon) {
       favicon = document.createElement("link");
       favicon.setAttribute("rel", "icon");
+      favicon.setAttribute("type", "image/svg+xml");
       document.head.appendChild(favicon);
     }
     favicon.setAttribute("href", `data:image/svg+xml,${svg}`);
+ 
+    // Meta description for SEO
+    let metaDesc = document.querySelector("meta[name='description']");
+    if (!metaDesc) {
+      metaDesc = document.createElement("meta");
+      metaDesc.setAttribute("name", "description");
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute(
+      "content",
+      "ClearNote Medical provides virtual sick notes, work accommodation letters, disability forms, and DTC paperwork for Ontario patients — no family doctor required. Same-day appointments available."
+    );
+ 
+    // OG tags
+    const ogTags = [
+      { property: "og:title", content: "ClearNote Medical | Virtual Sick Notes & Disability Forms in Ontario" },
+      { property: "og:description", content: "Virtual medical documentation for Ontario patients. Sick notes, disability forms, DTC paperwork — no family doctor required." },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://clearnotemedical.ca" },
+    ];
+    ogTags.forEach(({ property, content }) => {
+      let tag = document.querySelector(`meta[property='${property}']`);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute("property", property);
+        document.head.appendChild(tag);
+      }
+      tag.setAttribute("content", content);
+    });
+ 
+    return () => {
+      document.title = "ClearNote Medical";
+    };
   }, []);
-
+ 
   const services = [
     {
       title: "Sick Notes",
@@ -49,14 +88,14 @@ export default function ClearNoteMedicalWebsite() {
       time: "15–20 min visits",
     },
   ];
-
+ 
   const steps = [
     "Book your virtual appointment online.",
     "Complete a short intake form with your OHIP details and reason for the visit.",
     "Meet with an Ontario GP by secure virtual visit.",
     "Receive your documentation by secure electronic delivery when clinically appropriate.",
   ];
-
+ 
   const pricing = [
     { name: "Sick Note", price: "$15", desc: "Work or school absence documentation after assessment." },
     { name: "Return-to-Work Note", price: "$15", desc: "Basic return-to-work clearance when appropriate." },
@@ -65,7 +104,7 @@ export default function ClearNoteMedicalWebsite() {
     { name: "Long Disability / Insurance", price: "$80", desc: "Long-term disability or detailed insurance forms." },
     { name: "DTC Form", price: "$80", desc: "Disability Tax Credit medical documentation." },
   ];
-
+ 
   const faqs = [
     {
       q: "Do I need a family doctor?",
@@ -84,13 +123,16 @@ export default function ClearNoteMedicalWebsite() {
       a: "No. ClearNote Medical is not an emergency service. If you have chest pain, severe shortness of breath, thoughts of self-harm, or another urgent medical issue, call 911 or go to the nearest emergency department.",
     },
   ];
-
+ 
+  // FIX #1: Each highlight now has its own icon — removed the hardcoded "Highlights" label
   const highlights = [
     { label: "Fully virtual", icon: Stethoscope },
     { label: "OHIP billed when eligible", icon: ShieldCheck },
     { label: "Same-day availability", icon: Clock3 },
   ];
-
+ 
+  const janeUrl = "https://clearnotemedical.janeapp.com";
+ 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-blue-50 text-slate-900">
       <header className="sticky top-0 z-30 border-b border-sky-100 bg-white/95 backdrop-blur">
@@ -107,28 +149,29 @@ export default function ClearNoteMedicalWebsite() {
             </div>
             <div className="mt-1 text-xs text-slate-500">Dr. J M Abraham, Ontario GP</div>
           </div>
+          {/* FIX #2: Mobile header CTA — visible on all screen sizes */}
           <a
-            href="https://clearnotemedical.janeapp.com"
-            className="hidden shrink-0 rounded-2xl bg-gradient-to-r from-sky-700 to-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-sky-200 transition hover:scale-[1.02] sm:inline-flex"
+            href={janeUrl}
+            className="shrink-0 rounded-2xl bg-gradient-to-r from-sky-700 to-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sky-200 transition hover:scale-[1.02] sm:px-5 sm:py-3"
           >
             Book Now
           </a>
         </div>
       </header>
-
+ 
       <main>
         <div className="bg-gradient-to-r from-sky-800 to-blue-700 text-white">
           <div className="mx-auto max-w-7xl px-4 py-3 text-center text-xs font-semibold tracking-wide sm:px-6 sm:text-sm">
             Physician-Led Virtual Clinic • No Family Doctor Required • OHIP-Covered Visits Available • Same-Day Appointments
           </div>
         </div>
-
+ 
         <div className="border-b border-sky-100 bg-sky-50/80">
           <div className="mx-auto max-w-7xl px-4 py-3 text-center text-xs font-medium text-sky-900 sm:px-6 sm:text-sm">
             Transparent Pricing • OHIP-Covered Assessments • Low-Cost Documentation Fees Posted Before Booking
           </div>
         </div>
-
+ 
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
             <div>
@@ -143,7 +186,7 @@ export default function ClearNoteMedicalWebsite() {
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
                 <a
-                  href="https://clearnotemedical.janeapp.com"
+                  href={janeUrl}
                   className="inline-flex items-center justify-center rounded-2xl bg-gradient-to-r from-sky-700 to-blue-600 px-6 py-4 text-base font-semibold text-white shadow-xl shadow-sky-200 transition hover:scale-[1.01]"
                 >
                   Book Appointment
@@ -155,22 +198,22 @@ export default function ClearNoteMedicalWebsite() {
                   View Services
                 </a>
               </div>
+              {/* FIX #1: Render item.label correctly — removed hardcoded "Highlights" text */}
               <div className="mt-8 grid gap-3 sm:grid-cols-3">
                 {highlights.map((item) => {
                   const Icon = item.icon;
                   return (
                     <div key={item.label} className="rounded-2xl border border-sky-100 bg-white p-4 shadow-sm shadow-sky-100">
-                      <div className="flex items-center gap-2 text-sm text-sky-700">
-                        <Icon className="h-4 w-4" />
-                        <span>Highlights</span>
+                      <div className="flex items-center gap-2 text-sky-700">
+                        <Icon className="h-4 w-4 shrink-0" />
+                        <div className="text-sm font-semibold text-slate-900">{item.label}</div>
                       </div>
-                      <div className="mt-2 text-sm font-semibold text-slate-900 sm:text-base">{item.label}</div>
                     </div>
                   );
                 })}
               </div>
             </div>
-
+ 
             <div className="rounded-[2rem] border border-sky-100 bg-white p-4 shadow-2xl shadow-sky-100 sm:p-6">
               <div className="rounded-[1.5rem] bg-gradient-to-br from-sky-800 to-blue-600 p-6 text-white">
                 <div className="text-sm uppercase tracking-[0.2em] text-sky-100">ClearNote Medical</div>
@@ -196,7 +239,7 @@ export default function ClearNoteMedicalWebsite() {
             </div>
           </div>
         </section>
-
+ 
         <section id="services" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-12">
           <div className="max-w-3xl">
             <h2 className="text-3xl font-bold tracking-tight text-sky-950 sm:text-4xl">Services</h2>
@@ -214,7 +257,7 @@ export default function ClearNoteMedicalWebsite() {
             ))}
           </div>
         </section>
-
+ 
         <section id="pricing" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:py-12">
           <div className="max-w-3xl">
             <h2 className="text-3xl font-bold tracking-tight text-sky-950 sm:text-4xl">Pricing</h2>
@@ -234,7 +277,7 @@ export default function ClearNoteMedicalWebsite() {
             ))}
           </div>
         </section>
-
+ 
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
           <div className="grid gap-8 lg:grid-cols-2">
             <div className="rounded-[2rem] border border-sky-100 bg-white p-6 shadow-sm shadow-sky-100 sm:p-8">
@@ -250,7 +293,7 @@ export default function ClearNoteMedicalWebsite() {
                 ))}
               </div>
             </div>
-
+ 
             <div className="rounded-[2rem] border border-sky-700 bg-gradient-to-br from-sky-800 to-blue-700 p-6 text-white shadow-sm sm:p-8">
               <h3 className="text-2xl font-bold tracking-tight">Important information</h3>
               <div className="mt-6 space-y-4 leading-7 text-sky-50">
@@ -270,7 +313,7 @@ export default function ClearNoteMedicalWebsite() {
             </div>
           </div>
         </section>
-
+ 
         <section className="mx-auto max-w-7xl px-4 py-8 pb-28 sm:px-6 sm:pb-24">
           <div className="rounded-[2rem] border border-sky-100 bg-white p-6 shadow-sm shadow-sky-100 sm:p-8">
             <div className="grid gap-10 lg:grid-cols-2">
@@ -285,7 +328,7 @@ export default function ClearNoteMedicalWebsite() {
                   ))}
                 </div>
               </div>
-
+ 
               <div id="book" className="rounded-[1.75rem] border border-sky-100 bg-sky-50/70 p-6">
                 <h3 className="text-2xl font-bold tracking-tight text-sky-950">Book an appointment</h3>
                 <p className="mt-3 leading-7 text-slate-600">
@@ -294,11 +337,22 @@ export default function ClearNoteMedicalWebsite() {
                 <div className="mt-6 space-y-4">
                   <div className="rounded-2xl border border-sky-100 bg-white p-4">
                     <div className="text-sm text-slate-500">Booking link</div>
-                    <div className="mt-1 break-all font-medium text-sky-900">https://clearnotemedical.janeapp.com</div>
+                    <a
+                      href={janeUrl}
+                      className="mt-1 block break-all font-medium text-sky-700 underline underline-offset-2 hover:text-sky-900"
+                    >
+                      {janeUrl}
+                    </a>
                   </div>
+                  {/* FIX #3: Email is now a clickable mailto: link */}
                   <div className="rounded-2xl border border-sky-100 bg-white p-4">
                     <div className="text-sm text-slate-500">Email</div>
-                    <div className="mt-1 font-medium text-sky-900">hello@clearnotemedical.ca</div>
+                    <a
+                      href="mailto:hello@clearnotemedical.ca"
+                      className="mt-1 block font-medium text-sky-700 underline underline-offset-2 hover:text-sky-900"
+                    >
+                      hello@clearnotemedical.ca
+                    </a>
                   </div>
                   <div className="rounded-2xl border border-sky-100 bg-white p-4">
                     <div className="text-sm text-slate-500">Hours</div>
@@ -306,7 +360,7 @@ export default function ClearNoteMedicalWebsite() {
                   </div>
                 </div>
                 <a
-                  href="https://clearnotemedical.janeapp.com"
+                  href={janeUrl}
                   className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-gradient-to-r from-sky-700 to-blue-600 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-sky-200 transition hover:scale-[1.01] sm:w-auto"
                 >
                   Book on Jane
@@ -316,15 +370,16 @@ export default function ClearNoteMedicalWebsite() {
           </div>
         </section>
       </main>
-
+ 
       <a
-        href="https://clearnotemedical.janeapp.com"
+        href={janeUrl}
         className="fixed bottom-4 right-4 z-40 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-sky-700 to-blue-600 px-5 py-4 text-sm font-semibold text-white shadow-2xl shadow-sky-300 transition hover:scale-[1.02] sm:bottom-6 sm:right-6"
       >
         <Clock3 className="h-4 w-4" />
         Book Now
       </a>
-
+ 
+      {/* FIX #4 & #5: Footer with PHIPA mention and clickable email */}
       <footer className="border-t border-sky-100 bg-white">
         <div className="mx-auto max-w-7xl px-4 py-8 text-sm text-slate-500 sm:px-6">
           <div className="font-semibold text-sky-950">ClearNote Medical</div>
@@ -332,9 +387,18 @@ export default function ClearNoteMedicalWebsite() {
           <p className="mt-2 max-w-3xl leading-7">
             Virtual medical documentation clinic for Ontario patients. This website content is informational only and does not create a physician-patient relationship until an appointment is booked and accepted.
           </p>
+          <p className="mt-2 max-w-3xl leading-7 text-xs text-slate-400">
+            Patient information is collected and handled in accordance with Ontario's{" "}
+            <em>Personal Health Information Protection Act</em> (PHIPA). For privacy inquiries, contact{" "}
+            <a href="mailto:hello@clearnotemedical.ca" className="underline underline-offset-2 hover:text-slate-600">
+              hello@clearnotemedical.ca
+            </a>.
+          </p>
+          <p className="mt-4 text-xs text-slate-400">
+            © {new Date().getFullYear()} ClearNote Medical. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
   );
 }
-
